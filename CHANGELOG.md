@@ -1,4 +1,5 @@
-
+## 2.0.0 
+Migration flutter 2.0.3
 ## 1.1.4
 Adding setZoom to controller to be able to set the zoom programatically
 
