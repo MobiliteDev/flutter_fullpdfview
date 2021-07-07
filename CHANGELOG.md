@@ -1,3 +1,5 @@
+## [2.0.1 -  07/07/2021]
+Correction de type pour ios
 ## 2.0.0 
 Migration flutter 2.0.3
 ## 1.1.4
