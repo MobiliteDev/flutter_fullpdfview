@@ -9,8 +9,8 @@ typedef void PDFViewCreatedCallback(PDFViewController? controller);
 typedef void RenderCallback(int? pages);
 typedef void PageChangedCallback(int? page, int? total);
 typedef void ZoomChangedCallback(double? zoom);
-typedef void ErrorCallback(dynamic? error);
-typedef void PageErrorCallback(int? page, dynamic? error);
+typedef void ErrorCallback(dynamic error);
+typedef void PageErrorCallback(int? page, dynamic error);
 
 enum bgcolors { BLACK, WHITE, CYAN, BLUE }
 enum FitPolicy { WIDTH, HEIGHT, BOTH }

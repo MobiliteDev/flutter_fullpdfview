@@ -1,15 +1,18 @@
 name: flutter_fullpdfview
 description: A Pdf Viewer for Android and IOS including fit policy. Based on flutter_pdfview from endigo.
-version: 2.0.1
+version: 2.0.2
 verified publisher: candelub.eu
 homepage: https://github.com/arnaudelub/flutter_fullpdfview
+# Ne pas afficher l'URL
+# Envoyer en local, puis remettre 'none'
+publish_to: "none"
 
 environment:
-  sdk: ">=2.12.0 <3.0.0"
+  sdk: ">=2.14.0 <3.0.0"
   # obligé pour push sur unpub
   # pubspec.yaml allows Flutter SDK version 1.9.x, which does not support the flutter.plugin.platforms key.
   # Please consider increasing the Flutter SDK requirement to ^1.10.0
-  flutter: ">=1.12.0"
+  flutter: ">=2.5.0"
 dependencies:
   flutter:
     sdk: flutter
@@ -36,7 +39,6 @@ flutter:
         pluginClass: FlutterFullpdfviewPlugin
       ios:
         pluginClass: FlutterFullpdfviewPlugin
-
 
   # To add assets to your plugin package, add an assets section, like this:
   # assets:
@@ -68,4 +70,3 @@ flutter:
   #
   # For details regarding fonts in packages, see
   # https://flutter.dev/custom-fonts/#from-packages
-publish_to: http://d4unpub.asp.local:4000/

@@ -16,6 +16,7 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   String pathPDF = "";
+  String pathPDFLink = "";
   String corruptedPathPDF = "";
 
   @override
@@ -29,6 +30,11 @@ class _MyAppState extends State<MyApp> {
     fromAsset('assets/demo.pdf', 'sample.pdf').then((f) {
       setState(() {
         pathPDF = f.path;
+      });
+    });
+    fromAsset('assets/demo-link.pdf', 'demo-link.pdf').then((f) {
+      setState(() {
+        pathPDFLink = f.path;
       });
     });
   }
@@ -88,17 +94,30 @@ class _MyAppState extends State<MyApp> {
                       }
                     }),
                 RaisedButton(
-                    child: Text("Open Corrupted PDF"),
-                    onPressed: () {
-                      if (pathPDF != null) {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) =>
-                                  PDFScreen(path: corruptedPathPDF)),
-                        );
-                      }
-                    })
+                  child: Text("Open Corrupted PDF"),
+                  onPressed: () {
+                    if (pathPDF != null) {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) =>
+                                PDFScreen(path: corruptedPathPDF)),
+                      );
+                    }
+                  },
+                ),
+                RaisedButton(
+                  child: Text("Open PDF link"),
+                  onPressed: () {
+                    if (pathPDFLink != null) {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => PDFScreen(path: pathPDFLink)),
+                      );
+                    }
+                  },
+                )
               ],
             );
           },
@@ -109,21 +128,21 @@ class _MyAppState extends State<MyApp> {
 }
 
 class PDFScreen extends StatefulWidget {
-  final String path;
-  PDFScreen({Key key, this.path}) : super(key: key);
+  final String? path;
+  PDFScreen({Key? key, this.path}) : super(key: key);
 
   _PDFScreenState createState() => _PDFScreenState();
 }
 
 class _PDFScreenState extends State<PDFScreen> {
-  int pages = 0;
+  int? pages = 0;
   bool isReady = false;
   String errorMessage = '';
   GlobalKey pdfKey = GlobalKey();
   bool isActive = true;
   double scale = 1.0;
   double top = 200.0;
-  double initialLocalFocalPoint;
+  double? initialLocalFocalPoint;
   @override
   Widget build(BuildContext context) {
     return OrientationBuilder(
@@ -177,13 +196,13 @@ class _PDFScreenState extends State<PDFScreen> {
                       });
                       print('$page: ${error.toString()}');
                     },
-                    onViewCreated: (PDFViewController pdfViewController) {
+                    onViewCreated: (PDFViewController? pdfViewController) {
                       _controller.complete(pdfViewController);
                     },
-                    onPageChanged: (int page, int total) {
+                    onPageChanged: (int? page, int? total) {
                       print('page change: $page/$total');
                     },
-                    onZoomChanged: (double zoom) {
+                    onZoomChanged: (double? zoom) {
                       print("Zoom is now $zoom");
                     }),
               ),
@@ -201,14 +220,14 @@ class _PDFScreenState extends State<PDFScreen> {
             builder: (context, AsyncSnapshot<PDFViewController> snapshot) {
               if (snapshot.hasData) {
                 return FloatingActionButton.extended(
-                  label: Text("Go to ${pages ~/ 2}"),
+                  label: Text("Go to ${pages! ~/ 2}"),
                   onPressed: () async {
-                    print(await snapshot.data.getZoom());
-                    print(await snapshot.data.getPageWidth(1));
-                    print(await snapshot.data.getPageHeight(1));
+                    print(await snapshot.data!.getZoom());
+                    print(await snapshot.data!.getPageWidth(1));
+                    print(await snapshot.data!.getPageHeight(1));
                     //await snapshot.data.setPage(pages ~/ 2);
-                    await snapshot.data.resetZoom(1);
-                    await snapshot.data.setZoom(3.0);
+                    await snapshot.data!.resetZoom(1);
+                    await snapshot.data!.setZoom(3.0);
                     //print(await snapshot.data.getScreenWidth());
                   },
                 );
@@ -253,10 +272,10 @@ class _PDFScreenState extends State<PDFScreen> {
             });
             print('$page: ${error.toString()}');
           },
-          onViewCreated: (PDFViewController pdfViewController) {
+          onViewCreated: (PDFViewController? pdfViewController) {
             _controller.complete(pdfViewController);
           },
-          onPageChanged: (int page, int total) {
+          onPageChanged: (int? page, int? total) {
             print('page change: $page/$total');
           },
         );
